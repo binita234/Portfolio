@@ -123,17 +123,17 @@ ORDER BY	2,3
 WITH		PopVSVac (Continent, Location, Date, Population ,new_vaccinations, RollingPeopleVaccinated)
 AS 
 (
-			SELECT		dea.continent,
-					dea.location,
-					dea.date, 
-					dea.population,
-					vac.new_vaccinations,
-					SUM(CONVERT(INT,vac.new_vaccinations)) OVER (PARTITION BY dea.Location ORDER BY dea.Location,dea.Date) RollingPeopleVaccinated
-			FROM		PortfolioProject..CovidDeaths dea
-			JOIN		PortfolioProject.. CovidVaccinations  vac
-			ON		dea.location = vac.location
-			AND		dea.date= vac.date
-			WHERE		dea.continent IS NOT NULL
+		SELECT		dea.continent,
+				dea.location,
+				dea.date, 
+				dea.population,
+				vac.new_vaccinations,
+				SUM(CONVERT(INT,vac.new_vaccinations)) OVER (PARTITION BY dea.Location ORDER BY dea.Location,dea.Date) RollingPeopleVaccinated
+		FROM		PortfolioProject..CovidDeaths dea
+		JOIN		PortfolioProject.. CovidVaccinations  vac
+		ON		dea.location = vac.location
+		AND		dea.date= vac.date
+		WHERE		dea.continent IS NOT NULL
 )
 
 SELECT		*,
@@ -142,8 +142,8 @@ FROM		PopVSVac
 
 --TEMP TABLE
 
-DROP	TABLE IF EXISTS #PercentPopulationVaccinated
-CREATE	TABLE	#PercentPopulationVaccinated
+DROP	TABLE IF EXISTS 	#PercentPopulationVaccinated
+CREATE	TABLE			#PercentPopulationVaccinated
 (
 		[Continent]					NVARCHAR(255), 
 		[Location]					NVARCHAR(255), 
@@ -173,7 +173,7 @@ FROM			#PercentPopulationVaccinated
 
 --  Creating View to store data for later visualization
 
-CREATE	VIEW	vw_PercentPopulationVaccinated 
+CREATE	VIEW		vw_PercentPopulationVaccinated 
 AS	 
 SELECT			dea.continent,
 			dea.location,
