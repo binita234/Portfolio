@@ -64,7 +64,7 @@ END;
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
--- Breaking out Address into Indicidual Columns (Address , City, State)
+-- Breaking out Address into Individual Columns (Address , City, State)
 
 SELECT			 SUBSTRING(PropertyAddress , 1,  CHARINDEX (',' , PropertyAddress)- 1) AS Address
 			,SUBSTRING(PropertyAddress , CHARINDEX (',' , PropertyAddress)+1 ,LEN(PropertyAddress)) AS City
